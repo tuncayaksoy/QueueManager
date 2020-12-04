@@ -68,10 +68,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RabbitMqConsumer.cs" />
+    <Compile Include="RabbitMqManager.cs" />
+    <Compile Include="RabbitMqPublisher.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\T.Models\T.Models.csproj">
+      <Project>{75420f17-1c1c-416a-9afb-b589f5de6f3f}</Project>
+      <Name>T.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
