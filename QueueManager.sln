@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "T.RabbitMQ", "T.RabbitMQ\T.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "T.Models", "T.Models\T.Models.csproj", "{75420F17-1C1C-416A-9AFB-B589F5DE6F3F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "T.Kafka", "T.Kafka\T.Kafka.csproj", "{7C13C5BF-ABEB-4FBC-B714-694C923F391E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{75420F17-1C1C-416A-9AFB-B589F5DE6F3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{75420F17-1C1C-416A-9AFB-B589F5DE6F3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{75420F17-1C1C-416A-9AFB-B589F5DE6F3F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C13C5BF-ABEB-4FBC-B714-694C923F391E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C13C5BF-ABEB-4FBC-B714-694C923F391E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C13C5BF-ABEB-4FBC-B714-694C923F391E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C13C5BF-ABEB-4FBC-B714-694C923F391E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

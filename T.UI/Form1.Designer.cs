@@ -36,6 +36,7 @@ namespace T.UI
             this.txtPublishQueueName = new System.Windows.Forms.TextBox();
             this.btnSubscribe = new System.Windows.Forms.Button();
             this.btnPublish = new System.Windows.Forms.Button();
+            this.cmbQueueType = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // richTextBox1
@@ -65,7 +66,7 @@ namespace T.UI
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(93, 17);
+            this.label1.Location = new System.Drawing.Point(319, 17);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(70, 13);
             this.label1.TabIndex = 10;
@@ -73,7 +74,7 @@ namespace T.UI
             // 
             // txtPublishQueueName
             // 
-            this.txtPublishQueueName.Location = new System.Drawing.Point(169, 12);
+            this.txtPublishQueueName.Location = new System.Drawing.Point(395, 12);
             this.txtPublishQueueName.Name = "txtPublishQueueName";
             this.txtPublishQueueName.Size = new System.Drawing.Size(100, 20);
             this.txtPublishQueueName.TabIndex = 9;
@@ -90,7 +91,7 @@ namespace T.UI
             // 
             // btnPublish
             // 
-            this.btnPublish.Location = new System.Drawing.Point(12, 10);
+            this.btnPublish.Location = new System.Drawing.Point(238, 10);
             this.btnPublish.Name = "btnPublish";
             this.btnPublish.Size = new System.Drawing.Size(75, 23);
             this.btnPublish.TabIndex = 7;
@@ -98,11 +99,23 @@ namespace T.UI
             this.btnPublish.UseVisualStyleBackColor = true;
             this.btnPublish.Click += new System.EventHandler(this.btnPublish_Click);
             // 
+            // cmbQueueType
+            // 
+            this.cmbQueueType.FormattingEnabled = true;
+            this.cmbQueueType.Items.AddRange(new object[] {
+            "RabbitMQ",
+            "Kafka"});
+            this.cmbQueueType.Location = new System.Drawing.Point(12, 13);
+            this.cmbQueueType.Name = "cmbQueueType";
+            this.cmbQueueType.Size = new System.Drawing.Size(177, 21);
+            this.cmbQueueType.TabIndex = 13;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.cmbQueueType);
             this.Controls.Add(this.txtConsumerQueueName);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -130,6 +143,7 @@ namespace T.UI
         private System.Windows.Forms.TextBox txtPublishQueueName;
         private System.Windows.Forms.Button btnSubscribe;
         private System.Windows.Forms.Button btnPublish;
+        private System.Windows.Forms.ComboBox cmbQueueType;
     }
 }
 

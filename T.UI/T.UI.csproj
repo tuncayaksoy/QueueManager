@@ -82,6 +82,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\T.Kafka\T.Kafka.csproj">
+      <Project>{7c13c5bf-abeb-4fbc-b714-694c923f391e}</Project>
+      <Name>T.Kafka</Name>
+    </ProjectReference>
     <ProjectReference Include="..\T.Models\T.Models.csproj">
       <Project>{75420f17-1c1c-416a-9afb-b589f5de6f3f}</Project>
       <Name>T.Models</Name>
