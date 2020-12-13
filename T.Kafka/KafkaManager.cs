@@ -11,39 +11,19 @@ namespace T.Kafka
 {
     public class KafkaManager
     {
-        private readonly KafkaPublisher _kafkaPublisher;
-
-        private readonly KafkaConsumer _kafkaConsumer;
+        private readonly KafkaProducer _kafkaProducer;
 
         public event EventHandler<ResultData> Received;
 
-
-        //var kafkaOptions = new KafkaOptions(new Uri("http://192.168.99.100:9092"));
-        //var brokerRouter = new BrokerRouter(kafkaOptions);
-        //var producer = new TestProducer(brokerRouter);
-
-        //Console.WriteLine("Send a Message to TestTopic:");
-        //while (true)
-        //{
-        //    producer.SendMessageAsync("TestTopic", Console.ReadLine());
-        //}
+        private readonly KafkaOptions _kafkaOptions;
 
         public KafkaManager(string host)
         {
-            var kafkaOptions = new KafkaOptions(new Uri(host));
+            _kafkaOptions = new KafkaOptions(new Uri(host));
 
-            var brokerRouter = new BrokerRouter(kafkaOptions);
+            var brokerRouter = new BrokerRouter(_kafkaOptions);
 
-            _kafkaPublisher = new KafkaPublisher(brokerRouter);
-
-            _kafkaConsumer = new KafkaConsumer(brokerRouter);
-
-            _kafkaConsumer.Received += _kafkaConsumer_Received;
-        }
-
-        private void _kafkaConsumer_Received(object sender, ResultData e)
-        {
-            Received?.Invoke(sender, e);
+            _kafkaProducer = new KafkaProducer(brokerRouter);
         }
 
         public KafkaManager(string host, string userName, string name)
@@ -51,28 +31,36 @@ namespace T.Kafka
 
         }
 
-        public void Publish(object data, string queueName)
+        public KafkaConsumer CreateConsumer(string topic)
         {
-            if (string.IsNullOrEmpty(queueName))
+            var brokerRouter = new BrokerRouter(_kafkaOptions);
+
+            return new KafkaConsumer(brokerRouter, topic);
+        }
+
+        public void Send(string topic, string message)
+        {
+            if (string.IsNullOrEmpty(topic))
             {
                 throw new Exception("Queue name can not be empty or null");
                 //OnLog(LogTypes.Warning, "Publish", "Queue name can not be empty or null");
             }
             else
             {
-                _kafkaPublisher.SendMessageAsync(queueName, data.ToString());
+                _kafkaProducer.Send(topic, message);
             }
         }
 
-        public void Subscribe(string queueName)
+        public void Subscribe(KafkaConsumer kafkaConsumer)
         {
-            if (!string.IsNullOrEmpty(queueName))
-                _kafkaConsumer.StartConsume(queueName);
-            else
-            {
-                throw new Exception("Queue name can not be empty or null");
-                //OnLog(LogTypes.Warning, "Subscribe", "Queue name can not be empty or null");
-            }
+            kafkaConsumer.Received += KafkaConsumer_Received;
+
+            kafkaConsumer.Consume();
+        }
+
+        private void KafkaConsumer_Received(object sender, ResultData e)
+        {
+            Received?.Invoke(sender, e);
         }
     }
 }

@@ -17,18 +17,18 @@ namespace T.Kafka
 
         private readonly IBrokerRouter _brokerRouter;
 
-        private string _topic = "";
+        private readonly string _topic;
 
-        public KafkaConsumer(IBrokerRouter brokerRouter)
+        public KafkaConsumer(IBrokerRouter brokerRouter, string topic)
         {
             _brokerRouter = brokerRouter;
-        }
-
-        public void StartConsume(string topic)
-        {
-            Console.WriteLine($"Consuming {topic}");
 
             _topic = topic;
+        }
+
+        public void Consume()
+        {
+            Console.WriteLine($"Consuming {_topic}");
 
             ThreadPool.QueueUserWorkItem(Consumer);
         }
@@ -37,16 +37,11 @@ namespace T.Kafka
         {
             var consumer = new Consumer(new ConsumerOptions(_topic, _brokerRouter));
 
-            while (true)
+            foreach (var messages in consumer.Consume())
             {
-                foreach (var messages in consumer.Consume())
-                {
-                    string data = $"Response: PartitionId:{messages.Meta.PartitionId}, Offset:{ messages.Meta.Offset} Message:{ Encoding.UTF8.GetString(messages.Value)}";
+                string data = $"Response: PartitionId:{messages.Meta.PartitionId}, Offset:{ messages.Meta.Offset} Message:{ Encoding.UTF8.GetString(messages.Value)}";
 
-                    Received?.Invoke(this, new ResultData() { Data = data, QueueName = _topic });
-                }
-
-                Thread.Sleep(5);
+                Received?.Invoke(this, new ResultData() { Data = data, QueueName = _topic });
             }
         }
 

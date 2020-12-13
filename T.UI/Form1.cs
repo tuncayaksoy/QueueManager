@@ -26,7 +26,7 @@ namespace T.UI
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            cmbQueueType.SelectedIndex = 0;
+            cmbQueueType.SelectedIndex = 1;
 
             _rabbitMqManager = new RabbitMqManager("localHost");
 
@@ -88,7 +88,7 @@ namespace T.UI
             {
                 try
                 {
-                    _kafkaManager.Publish(Guid.NewGuid(), txtPublishQueueName.Text);
+                    _kafkaManager.Send(txtPublishQueueName.Text, Guid.NewGuid().ToString());
                 }
                 catch (Exception exception)
                 {
@@ -115,7 +115,9 @@ namespace T.UI
             {
                 try
                 {
-                    _kafkaManager.Subscribe(txtConsumerQueueName.Text);
+                    KafkaConsumer kafkaConsumer = _kafkaManager.CreateConsumer(txtConsumerQueueName.Text);
+
+                    _kafkaManager.Subscribe(kafkaConsumer);
                 }
                 catch (Exception exception)
                 {
